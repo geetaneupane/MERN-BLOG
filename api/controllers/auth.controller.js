@@ -7,9 +7,7 @@ export const signup=async (req,res, next)=>{
     if(!username || !email || !password || username==='' || email==='' ||password===''){
      next(errorHandler(400, "All fields are required!!"));
     }
-
-
-
+    
     const hashedPassword=bcryptjs.hashSync(password, 10);     //here 10 is number of salts i.e. salts mean random value. 
 
     const newUser=new User({
