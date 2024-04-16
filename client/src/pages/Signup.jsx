@@ -4,12 +4,12 @@ import {Link } from "react-router-dom";
 
 const Signup = () => {
 
-  const [formData, setFormData]=useState({})
+  const [formData, setFormData]=useState({});
 
   const handleChange=(e)=>{
   setFormData({...formData, [e.target.id]: e.target.value})
   }
-  
+  console.log(formData);
   const handleSubmit=async(e)=>{
  e.preventDefault();
   try{
@@ -18,6 +18,8 @@ const Signup = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
+
+    const data=await res.json();
   } catch(error) {}
 }
 
@@ -47,7 +49,9 @@ const Signup = () => {
         <Label value='Password'/>
         <TextInput type='password' placeholder='password' id='password'onChange={handleChange} />
        </div>
-       <Button type='Submit' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white flex item-center justify-center text-4xl font-bold py-2 px-4 rounded'>Sign-up</Button>
+       <Button type='submit' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
+        text-white flex item-center
+        justify-center text-4xl font-bold py-2 px-4 rounded'>Sign-up</Button>
       </form>
       <div className='flex gap-3 text-sm mt-2'>
        <span> Already have an account?</span>
