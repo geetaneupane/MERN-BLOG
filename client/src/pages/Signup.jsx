@@ -1,17 +1,22 @@
 import {React, useState } from 'react';
-import {Label, TextInput, Button} from 'flowbite-react'
+import {Label, TextInput, Button, Alert} from 'flowbite-react'
 import {Link } from "react-router-dom";
 
 const Signup = () => {
 
   const [formData, setFormData]=useState({});
+  const [errorMessage, setErrorMessage]=useState(null);
+  const[loading, setLoading]=useState(false);
 
   const handleChange=(e)=>{
-  setFormData({...formData, [e.target.id]: e.target.value})
+  setFormData({...formData, [e.target.id]: e.target.value.trim()})
   }
   console.log(formData);
   const handleSubmit=async(e)=>{
- e.preventDefault();
+    e.preventDefault();
+    if(!formData.username||!formData.email||!formData.password){
+      return setErrorMessage("Please provide all the fileds.");
+    }
   try{
      const res= await fetch('/api/auth/signup', {
       method: 'POST',
@@ -51,7 +56,7 @@ const Signup = () => {
        </div>
        <Button type='submit' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
         text-white flex item-center
-        justify-center text-4xl font-bold py-2 px-4 rounded'>Sign-up</Button>
+        justify-center text-4xl font-bold py-2 px-4 rounded'>Sign Up</Button>
       </form>
       <div className='flex gap-3 text-sm mt-2'>
        <span> Already have an account?</span>
@@ -59,6 +64,15 @@ const Signup = () => {
         Sign-in
        </Link>
       </div>
+      {
+        errorMessage &&(
+          <div className="w-15 h-8 mt-5 bg-red-300 text-red-700 rounded flex items-center justify-center">
+          <Alert  >
+            {errorMessage}
+          </Alert>
+          </div>
+        )
+      }
     </div>
    </div>
    </div>
