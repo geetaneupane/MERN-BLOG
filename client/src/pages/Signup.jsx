@@ -1,12 +1,13 @@
 import {React, useState } from 'react';
-import {Label, TextInput, Button, Alert} from 'flowbite-react'
-import {Link } from "react-router-dom";
+import { Label, TextInput, Button, Alert, Spinner } from 'flowbite-react'
+import {Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
   const [formData, setFormData]=useState({});
   const [errorMessage, setErrorMessage]=useState(null);
   const[loading, setLoading]=useState(false);
+  const navigate=useNavigate();
 
   const handleChange=(e)=>{
   setFormData({...formData, [e.target.id]: e.target.value.trim()})
@@ -18,6 +19,8 @@ const Signup = () => {
       return setErrorMessage("Please provide all the fileds.");
     }
   try{
+     setLoading(true);
+     setErrorMessage(null);
      const res= await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,7 +28,18 @@ const Signup = () => {
     });
 
     const data=await res.json();
-  } catch(error) {}
+    if(data.success===false){
+      return setErrorMessage(data.message);
+    }
+    setLoading(false);
+    if(res.ok){
+      navigate('/sign-in');
+    }
+  } catch(error) {
+  
+    setErrorMessage(error.message);
+    setLoading(false);
+  }
 }
 
   return (
@@ -56,7 +70,16 @@ const Signup = () => {
        </div>
        <Button type='submit' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
         text-white flex item-center
-        justify-center text-4xl font-bold py-2 px-4 rounded'>Sign Up</Button>
+        justify-center text-4xl font-bold py-2 px-4 rounded' disabled={loading}>
+          {
+            loading?(
+              <>
+              <Spinner size='sm'/>
+              <span className='pl-3'> Loading...</span>
+              </>
+            ) :'Sign Up'
+          }
+        </Button>
       </form>
       <div className='flex gap-3 text-sm mt-2'>
        <span> Already have an account?</span>
