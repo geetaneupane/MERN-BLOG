@@ -1,27 +1,29 @@
 import {React, useState } from 'react';
 import { Label, TextInput, Button, Alert, Spinner } from 'flowbite-react'
 import {Link, useNavigate } from "react-router-dom";
+//Import the below two lines of code for redux purpose:
+import { useSelector, useDispatch } from 'react-redux'
+import { signInStart, signInFailure, signInSuccess } from '../redux/user/userSlice';
 
 const Signin = () => {
 
   const [formData, setFormData]=useState({});
-  const [errorMessage, setErrorMessage]=useState(null);
-  const[loading, setLoading]=useState(false);
+ const{loading, error:errorMessage}=useSelector(state=>state.user);
+ const dispatch = useDispatch(); 
   const navigate=useNavigate();
 
   const handleChange=(e)=>{
-  setFormData({...formData, [e.target.id]: e.target.value.trim()})
+  setFormData({...formData, [e.target.id]: e.target.value.trim()})          //here trim is used to remove white space characters from both ends of string. 
   }
   console.log(formData);
   const handleSubmit=async(e)=>{
     e.preventDefault();
     if(!formData.email||!formData.password){
-      return setErrorMessage("Please provide all the fileds.");
+      return dispatch(signInFailure("Please provide all the fileds."));
     }
   try{
-     setLoading(true);
-     setErrorMessage(null);
-     const res= await fetch('/api/auth/signin', {
+    dispatch(signInStart())  ;                                                                   
+     const res= await fetch('/api/auth/signin', {                             
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -29,16 +31,15 @@ const Signin = () => {
 
     const data=await res.json();
     if(data.success===false){
-      return setErrorMessage(data.message);
+      dispatch(signInFailure(data.message));
     }
-    setLoading(false);
+   
     if(res.ok){
+      dispatch(signInSuccess(data));
       navigate('/');
     }
   } catch(error) {
-  
-    setErrorMessage(error.message);
-    setLoading(false);
+  dispatch(signInFailure(error.message));
   }
 }
 

@@ -15,8 +15,6 @@ mongoose.connect(process.env.MONGO)
 });
 
 
-    
-
 
 const app=express();
 app.use(express.json());
@@ -25,7 +23,6 @@ app.use(express.json());
 app.listen(3000, ()=>{
     console.log("Server is running on the port 3000!!")
 });
-
 
 
 
