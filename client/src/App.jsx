@@ -8,6 +8,7 @@ import Signin from "./pages/Signin"
 import Signup from "./pages/Signup"
 import EditedHeader from "./components/EditedHeader"
 import Footer from './components/Footer'
+import PrivateRoute from './components/PrivateRoute'
 
 
 
@@ -20,8 +21,10 @@ const App = () => {
         <Route path='/about' element={<About/>}/>
         <Route path='/sign-in' element={<Signin/>}/>
         <Route path='/sign-up' element={<Signup/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/projects' element={<Projects/>}/>
+        <Route  element={<PrivateRoute/>}>
+        <Route path='/dashboard' element={<Dashboard/>}/>               {/*inserting /dashboard route within privateRoute */}
+        </Route>
       </Routes>
       <Footer/>
       </BrowserRouter>
