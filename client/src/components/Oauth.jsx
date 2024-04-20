@@ -47,7 +47,7 @@ const Oauth = () => {
 
      <Button type='button' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
         text-white flex item-center
-        justify-center text-4xl font-bold py-2 px-4 rounded' outline onClick={googleclick}>
+        justify-center text-4xl font-bold py-2 px-4 rounded'  onClick={googleclick}>
           <AiFillGoogleCircle className='w-6 h-6 mr-2' />
           Continue with Google
         </Button>
@@ -55,4 +55,4 @@ const Oauth = () => {
   )
 }
 
-export default Oauth
+export default Oauth;

@@ -9,6 +9,8 @@ import Signup from "./pages/Signup"
 import EditedHeader from "./components/EditedHeader"
 import Footer from './components/Footer'
 
+
+
 const App = () => {
   return (
       <BrowserRouter>
