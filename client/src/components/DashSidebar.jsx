@@ -7,7 +7,7 @@ import {
     HiAnnotation,
     HiChartPie,
   } from 'react-icons/hi';
-  import { useLocation } from 'react-router-dom';
+  import { useLocation, Link } from 'react-router-dom';
   import {useEffect, useState} from 'react';
 
 const Sidebar = () => {
@@ -31,8 +31,10 @@ const Sidebar = () => {
         <nav>
           <ul>
             <li className="p-4 font-semibold flex hover:bg-gray-800" >
+              <Link to='/dashboard?tab=profile'>
              <HiUser className="w-6 h-6 mr-2" />
-                Profile</li>
+                Profile
+                </Link></li>
             <li className="p-4 font-semibold flex hover:bg-gray-800">
             <HiArrowSmRight className="w-6 h-6 mr-2" />
                 Sign Out
