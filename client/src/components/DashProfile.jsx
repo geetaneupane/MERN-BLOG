@@ -114,9 +114,9 @@ const DashProfile = () => {
         <TextInput type='text' id='email' placeholder='email' defaultValue={currentUser.email}></TextInput>
         <TextInput type='text' id='password' placeholder='password' ></TextInput>
         <button className="relative border border-purple-500 text-purple-500 font-bold py-2 px-4 rounded transition-all duration-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-indigo-500 hover:to-blue-500">
-  <span className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 transition-opacity duration-300"></span>
-  <span className="relative z-10 mr-10 ">Update</span>
-</button>
+        <span className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 transition-opacity duration-300"></span>
+        <span className="relative z-10 mr-10 ">Update</span>
+        </button>
       </form> 
       <div className='text-red-500 flex justify-between mt-5'>
       <span className='cursor-pointer'>Delete Account</span>
