@@ -15,6 +15,7 @@ const EditedHeader = () => {
     <img src={currentUser.profilePicture} alt="Profile" className="w-6 h-6 rounded-full" />
   ) : null;
 
+  
   return (
     <Navbar className="border-b-2 flex items-center justify-between">
       <div className="flex items-center">

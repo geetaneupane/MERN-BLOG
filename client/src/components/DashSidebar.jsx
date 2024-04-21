@@ -30,7 +30,7 @@ const Sidebar = () => {
         
         <nav>
           <ul>
-            <li className="p-4 font-semibold flex hover:bg-gray-800" label='User' labelColor='dark'>
+            <li className="p-4 font-semibold flex hover:bg-gray-800" >
              <HiUser className="w-6 h-6 mr-2" />
                 Profile</li>
             <li className="p-4 font-semibold flex hover:bg-gray-800">

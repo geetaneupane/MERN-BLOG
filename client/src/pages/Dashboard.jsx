@@ -22,7 +22,7 @@ const Dashboard = () => {
   //with this code, we can go to different components from the search query. 
 
   return (
-    <div>
+    <div className='flex '>
      <div>
 {/*Sidebar */}
 <DashSidebar/>
