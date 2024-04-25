@@ -1,5 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
+import User from '../models/user.model.js';
+
 
 export const test=(req, res)=>{
     res.json({message:"API is working!!"});
@@ -16,13 +18,13 @@ export const updateUser=async(req,res, next)=>{      //next to handle error!
     req.body.password=bcryptjs.hashSync(req.body.password, 10);
 }
 if (req.body.username){
-    if(req.body.username.length<7 || req.body.username.length>20){
+    if(req.body.username.length < 7 || req.body.username.length > 20){
         return next(errorHandler(400, "Username must be between 7 and 20 characters!"));
     }
-    if(req.body.username.includes('')){
+    if(req.body.username.includes(' ')){
         return next(errorHandler(400, "Username shouldnot contain any spaces!"));
     }
-    if(req.body.username!==req.body.username.toLowercase()){
+    if(req.body.username!==req.body.username.toLowerCase()){
         return next(errorHandler(400, "Username should be in lowercase!"));
     }
     if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
@@ -30,6 +32,7 @@ if (req.body.username){
           errorHandler(400, 'Username can only contain letters and numbers')
         );
       }
+    }
       try{
        const updatedUser=await User.findByIdAndUpdate (req.params.userId,{
         $set: {
@@ -45,5 +48,5 @@ if (req.body.username){
       catch(error){
         next(error);
       }
-}
+
 };                                                 //We need to install a package named cookie parser for this purpose in the backend 
