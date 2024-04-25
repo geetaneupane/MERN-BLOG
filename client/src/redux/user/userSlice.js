@@ -40,9 +40,37 @@ const userSlice=createSlice({
             state.loading = false;
             state.error = action.payload;
           },
+
+
+//Following code is deleting the user account purpose. When we click the delete user option, then we should have the 
+// updated state i.e. the profile username and other details of the user should be deleted.
+
+          deleteUserStart: (state) => {
+            state.loading = true;
+            state.error = null;
+          },
+          deleteUserSuccess: (state) => {
+            state.currentUser = null;
+            state.loading = false;
+            state.error = null;
+          },
+          deleteUserFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          },
     }
 });
 
 
-export const {signInStart, signInSuccess, signInFailure, updateStart, updateSuccess, updateFailure}=userSlice.actions
+export const {signInStart, 
+  signInSuccess,
+   signInFailure,
+    updateStart,
+     updateSuccess, 
+  updateFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure
+  
+}=userSlice.actions
 export default userSlice.reducer
