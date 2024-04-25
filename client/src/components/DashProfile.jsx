@@ -7,7 +7,7 @@ import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { updateFailure, updateStart, updateSuccess, deleteUserFailure, deleteUserSuccess, deleteUserStart } from '../redux/user/userSlice';
+import { updateFailure, updateStart, updateSuccess, deleteUserFailure, deleteUserSuccess, deleteUserStart, signoutSuccess } from '../redux/user/userSlice';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const DashProfile = () => {
@@ -74,6 +74,8 @@ const DashProfile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (Object.keys(formData).length === 0) {
@@ -108,6 +110,9 @@ const DashProfile = () => {
     }
   };
 
+
+
+
   const handleDeleteUser = async () => {
     setShowModal(true);
   };
@@ -134,6 +139,30 @@ const DashProfile = () => {
   const handleCancelDelete = () => {
     setShowModal(false);
   };
+
+
+
+
+
+  const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+
+
 
   return (
     <div className='max-w-lg max-auto p-3 w-full ml-40'>
@@ -175,7 +204,7 @@ const DashProfile = () => {
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span className='cursor-pointer' onClick={handleDeleteUser}>Delete Account</span>
-        <span className='cursor-pointer'>Sign Out</span>
+        <span className='cursor-pointer' onClick={handleSignout}>Sign Out</span>
       </div>
       {updateUserSuccess && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-5" role="alert">

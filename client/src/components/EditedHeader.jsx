@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Dropdown from './Dropdown';
 import { toggleTheme } from '../redux/theme/themeSlice';
 
+
 const EditedHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);

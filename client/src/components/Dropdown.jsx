@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import {signoutSuccess} from '../redux/user/userSlice';
+import {  useDispatch } from 'react-redux';
+
 
 const Dropdown = ({ profileIcon, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+
+  
+  const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
 
   const dynamicOptions = currentUser ? (
     <>
@@ -21,7 +45,7 @@ const Dropdown = ({ profileIcon, currentUser }) => {
       <Link to={'/dashboard?tab=profile'}>Profile</Link>
             </div>
       <div className="dropdown-divider" />
-      <div className="dropdown-item" >
+      <div className="dropdown-item" onClick={handleSignout} >
         Sign-Out
       </div>
 
@@ -33,6 +57,8 @@ const Dropdown = ({ profileIcon, currentUser }) => {
     </div>
   );
 
+
+  
   return (
     <div className="dropdown" onClick={toggleDropdown}>
       {profileIcon && profileIcon}

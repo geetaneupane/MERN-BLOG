@@ -67,3 +67,16 @@ catch(error){
     next(error);
 }
 };
+
+
+
+//For signout functionality: 
+export const signout=(req, res, next)=>{
+    try{
+      res.clearCookie('access_token').status(200).json("User has been signed out.");        //clearing the access token created during authorization. 
+    }
+    catch(error){
+        next(error);
+    }
+
+};
