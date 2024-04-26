@@ -9,6 +9,8 @@ import Signup from "./pages/Signup"
 import EditedHeader from "./components/EditedHeader"
 import Footer from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
+import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute'
+import Createpost from './pages/Createpost'
 
 
 
@@ -25,6 +27,11 @@ const App = () => {
         <Route  element={<PrivateRoute/>}>
         <Route path='/dashboard' element={<Dashboard/>}/>               {/*inserting /dashboard route within privateRoute */}
         </Route>
+
+        <Route  element={<OnlyAdminPrivateRoute/>}>
+        <Route path='/create-post' element={<Createpost/>}/>               {/*inserting /dashboard route within privateRoute */}
+        </Route>
+
       </Routes>
       <Footer/>
       </BrowserRouter>

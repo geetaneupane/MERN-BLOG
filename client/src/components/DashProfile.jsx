@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import {Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { TextInput, Button, Alert } from 'flowbite-react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -201,6 +202,18 @@ const DashProfile = () => {
           <span className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 transition-opacity duration-300"></span>
           <span className="relative z-5 mr-10 ">Update</span>
         </button>
+          
+          <div className='flex justify-center'>
+          {currentUser.isAdmin &&(
+            <Link to={'/create-post'}>
+            <button className="relative border border-purple-500 text-purple-500 font-bold py-2 px-4 rounded transition-all duration-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-indigo-500 hover:to-blue-500">
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 transition-opacity duration-300"></span>
+            <span className="relative z-5 mr-10 ">Create a post</span>
+          </button>
+          </Link>
+          )}
+         </div>
+
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span className='cursor-pointer' onClick={handleDeleteUser}>Delete Account</span>
